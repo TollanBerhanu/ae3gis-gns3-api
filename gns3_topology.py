@@ -23,6 +23,7 @@ def find_project_id(session, base_url, project_name):
 
 def get_template_map(session, base_url):
     templates = gns3_get(session, f"{base_url}/v2/templates")
+    print(f"[INFO] Found {len(templates)} templates on server {base_url}")
     # map by name (exact match) -> id
     return {t.get("name"): t.get("template_id") for t in templates}
 
@@ -34,9 +35,9 @@ def ensure_template(session, base_url, template_map, name):
 
 def add_node_from_template(session, base_url, project_id, template_id, name, x, y):
     url = f"{base_url}/v2/projects/{project_id}/templates/{template_id}"
-    payload = {"x": x, "y": y, "name": name}
+    payload = {"compute_id": "local" ,"x": x, "y": y, "name": name}
     node = gns3_post(session, url, json=payload)
-    node_id = node.get("node_id") or node.get("node_id")  # defensive
+    node_id = node.get("node_id")
     if not node_id:
         raise SystemExit(f"[ERROR] Failed to create node from template {template_id}: {node}")
     return node
@@ -83,9 +84,9 @@ def main():
 
     # Prepare HTTP session
     session = requests.Session()
-    if args.user and args.password:
-        session.auth = (args.user, args.password)
-    session.headers.update({"Accept": "application/json", "Content-Type": "application/json"})
+    # if args.user and args.password:
+    #     session.auth = (args.user, args.password)
+    # session.headers.update({"Accept": "application/json", "Content-Type": "application/json"})
 
     # 1) Find project
     project_id = find_project_id(session, base_url, args.project)
