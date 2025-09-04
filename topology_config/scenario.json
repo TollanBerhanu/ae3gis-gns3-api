@@ -1,0 +1,100 @@
+{
+  "gns3_server_ip":"192.168.56.101",
+  "project_name": "ae3gis-test",
+  "project_id": "fafbf8a3-4cd5-46e8-b368-3322952400c8",
+
+  "templates": {
+    "workstation": "9d29dc82-15d9-4af9-b2b9-9645c7a61bc9",
+    "openvswitch": "1cd31b8f-8afc-40f7-b9f3-92c4d124b695",
+    "firewall": "0f07952b-67a9-4a42-96f5-575d27969ac4",
+    "vpcs": "8844d08d-40d1-4f30-832b-954c69d19781"
+  },
+
+  "nodes": [
+    {
+      "name": "Workstation-1",
+      "template_id": "9d29dc82-15d9-4af9-b2b9-9645c7a61bc9",
+      "x": -300,
+      "y": -250
+    },
+    {
+      "name": "Workstation-2",
+      "template_id": "9d29dc82-15d9-4af9-b2b9-9645c7a61bc9",
+      "x": 300,
+      "y": -250
+    },
+
+    {
+      "name": "OpenvSwitch-IT",
+      "template_id": "1cd31b8f-8afc-40f7-b9f3-92c4d124b695",
+      "x": 0,
+      "y": -140
+    },
+
+    {
+      "name": "IPTables-Firewall",
+      "template_id": "0f07952b-67a9-4a42-96f5-575d27969ac4",
+      "x": 0,
+      "y": 0
+    },
+
+    {
+      "name": "OpenvSwitch-OT",
+      "template_id": "1cd31b8f-8afc-40f7-b9f3-92c4d124b695",
+      "x": 0,
+      "y": 150
+    },
+
+    {
+      "name": "PLC-1",
+      "template_id": "8844d08d-40d1-4f30-832b-954c69d19781",
+      "x": -300,
+      "y": 260
+    },
+    {
+      "name": "PLC-2",
+      "template_id": "8844d08d-40d1-4f30-832b-954c69d19781",
+      "x": 300,
+      "y": 260
+    }
+  ],
+
+  "links": [
+    {
+      "nodes": [
+        { "node_id": "Workstation-1", "adapter_number": 0, "port_number": 0 },
+        { "node_id": "OpenvSwitch-IT",        "adapter_number": 1, "port_number": 0 }
+      ]
+    },
+    {
+      "nodes": [
+        { "node_id": "Workstation-2", "adapter_number": 0, "port_number": 0 },
+        { "node_id": "OpenvSwitch-IT",        "adapter_number": 2, "port_number": 0 }
+      ]
+    },
+    {
+      "nodes": [
+        { "node_id": "OpenvSwitch-IT",     "adapter_number": 0, "port_number": 0 },
+        { "node_id": "NODE_FIREWALL",   "adapter_number": 0, "port_number": 0 }
+      ]
+    },
+    {
+      "nodes": [
+        { "node_id": "NODE_FIREWALL",   "adapter_number": 1, "port_number": 0 },
+        { "node_id": "OpenvSwitch-OT",     "adapter_number": 0, "port_number": 0 }
+      ]
+    },
+    {
+      "nodes": [
+        { "node_id": "PLC-1",  "adapter_number": 0, "port_number": 0 },
+        { "node_id": "OpenvSwitch-OT", "adapter_number": 1, "port_number": 0 }
+      ]
+    },
+    {
+      "nodes": [
+        { "node_id": "PLC-2",  "adapter_number": 0, "port_number": 0 },
+        { "node_id": "OpenvSwitch-OT", "adapter_number": 2, "port_number": 0 }
+      ]
+    }
+  ]
+}
