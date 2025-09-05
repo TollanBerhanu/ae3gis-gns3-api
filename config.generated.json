@@ -1,0 +1,526 @@
+{
+    "project_name": "ae3gis-scenario-builder-test",
+    "project_id": "2b54d41e-c6fa-4f41-8c60-531eef7fd69d",
+    "nodes": [
+        {
+            "name": "Workstation-3",
+            "node_id": "95169dd1-6ca9-4c77-adac-72fe07c2bd84",
+            "template_id": "9d29dc82-15d9-4af9-b2b9-9645c7a61bc9",
+            "compute_id": "local",
+            "console": 5020,
+            "console_host": "0.0.0.0",
+            "console_type": "telnet",
+            "ports": [
+                {
+                    "adapter_number": 0,
+                    "port_number": 0
+                }
+            ],
+            "properties": {
+                "adapters": 1,
+                "aux": 5021
+            },
+            "status": "stopped",
+            "x": -300,
+            "y": -250
+        },
+        {
+            "name": "Workstation-4",
+            "node_id": "1c96a6d0-8d90-4a73-b16f-8f0a353eec25",
+            "template_id": "9d29dc82-15d9-4af9-b2b9-9645c7a61bc9",
+            "compute_id": "local",
+            "console": 5022,
+            "console_host": "0.0.0.0",
+            "console_type": "telnet",
+            "ports": [
+                {
+                    "adapter_number": 0,
+                    "port_number": 0
+                }
+            ],
+            "properties": {
+                "adapters": 1,
+                "aux": 5023
+            },
+            "status": "stopped",
+            "x": 300,
+            "y": -250
+        },
+        {
+            "name": "OpenvSwitch-IT1",
+            "node_id": "cae92590-130b-484f-9fbb-ebfc3fdfd9a6",
+            "template_id": "1cd31b8f-8afc-40f7-b9f3-92c4d124b695",
+            "compute_id": "local",
+            "console": 5024,
+            "console_host": "0.0.0.0",
+            "console_type": "telnet",
+            "ports": [
+                {
+                    "adapter_number": 0,
+                    "port_number": 0
+                },
+                {
+                    "adapter_number": 1,
+                    "port_number": 0
+                },
+                {
+                    "adapter_number": 2,
+                    "port_number": 0
+                },
+                {
+                    "adapter_number": 3,
+                    "port_number": 0
+                },
+                {
+                    "adapter_number": 4,
+                    "port_number": 0
+                },
+                {
+                    "adapter_number": 5,
+                    "port_number": 0
+                },
+                {
+                    "adapter_number": 6,
+                    "port_number": 0
+                },
+                {
+                    "adapter_number": 7,
+                    "port_number": 0
+                },
+                {
+                    "adapter_number": 8,
+                    "port_number": 0
+                },
+                {
+                    "adapter_number": 9,
+                    "port_number": 0
+                },
+                {
+                    "adapter_number": 10,
+                    "port_number": 0
+                },
+                {
+                    "adapter_number": 11,
+                    "port_number": 0
+                },
+                {
+                    "adapter_number": 12,
+                    "port_number": 0
+                },
+                {
+                    "adapter_number": 13,
+                    "port_number": 0
+                },
+                {
+                    "adapter_number": 14,
+                    "port_number": 0
+                },
+                {
+                    "adapter_number": 15,
+                    "port_number": 0
+                }
+            ],
+            "properties": {
+                "adapters": 16,
+                "aux": 5025
+            },
+            "status": "stopped",
+            "x": 0,
+            "y": -140
+        },
+        {
+            "name": "IPTables-Firewall1",
+            "node_id": "a4db31e3-9b35-4bd6-a38d-5509ac62b6de",
+            "template_id": "0f07952b-67a9-4a42-96f5-575d27969ac4",
+            "compute_id": "local",
+            "console": 5026,
+            "console_host": "0.0.0.0",
+            "console_type": "telnet",
+            "ports": [
+                {
+                    "adapter_number": 0,
+                    "port_number": 0
+                },
+                {
+                    "adapter_number": 1,
+                    "port_number": 0
+                }
+            ],
+            "properties": {
+                "adapters": 2,
+                "aux": 5027
+            },
+            "status": "stopped",
+            "x": 0,
+            "y": 0
+        },
+        {
+            "name": "OpenvSwitch-OT1",
+            "node_id": "bddbf2c3-e098-41b3-a204-7387a7b8e099",
+            "template_id": "1cd31b8f-8afc-40f7-b9f3-92c4d124b695",
+            "compute_id": "local",
+            "console": 5028,
+            "console_host": "0.0.0.0",
+            "console_type": "telnet",
+            "ports": [
+                {
+                    "adapter_number": 0,
+                    "port_number": 0
+                },
+                {
+                    "adapter_number": 1,
+                    "port_number": 0
+                },
+                {
+                    "adapter_number": 2,
+                    "port_number": 0
+                },
+                {
+                    "adapter_number": 3,
+                    "port_number": 0
+                },
+                {
+                    "adapter_number": 4,
+                    "port_number": 0
+                },
+                {
+                    "adapter_number": 5,
+                    "port_number": 0
+                },
+                {
+                    "adapter_number": 6,
+                    "port_number": 0
+                },
+                {
+                    "adapter_number": 7,
+                    "port_number": 0
+                },
+                {
+                    "adapter_number": 8,
+                    "port_number": 0
+                },
+                {
+                    "adapter_number": 9,
+                    "port_number": 0
+                },
+                {
+                    "adapter_number": 10,
+                    "port_number": 0
+                },
+                {
+                    "adapter_number": 11,
+                    "port_number": 0
+                },
+                {
+                    "adapter_number": 12,
+                    "port_number": 0
+                },
+                {
+                    "adapter_number": 13,
+                    "port_number": 0
+                },
+                {
+                    "adapter_number": 14,
+                    "port_number": 0
+                },
+                {
+                    "adapter_number": 15,
+                    "port_number": 0
+                }
+            ],
+            "properties": {
+                "adapters": 16,
+                "aux": 5029
+            },
+            "status": "stopped",
+            "x": 0,
+            "y": 150
+        },
+        {
+            "name": "PLC-3",
+            "node_id": "896d0fd4-4dc1-4a22-8a31-413c932b9776",
+            "template_id": "8844d08d-40d1-4f30-832b-954c69d19781",
+            "compute_id": "local",
+            "console": 5030,
+            "console_host": "0.0.0.0",
+            "console_type": "telnet",
+            "ports": [
+                {
+                    "adapter_number": 0,
+                    "port_number": 0
+                }
+            ],
+            "properties": {
+                "adapters": 1,
+                "aux": 5031
+            },
+            "status": "stopped",
+            "x": -300,
+            "y": 260
+        },
+        {
+            "name": "PLC-4",
+            "node_id": "21809cd8-b090-4a90-81ed-1e8f06e5576f",
+            "template_id": "8844d08d-40d1-4f30-832b-954c69d19781",
+            "compute_id": "local",
+            "console": 5032,
+            "console_host": "0.0.0.0",
+            "console_type": "telnet",
+            "ports": [
+                {
+                    "adapter_number": 0,
+                    "port_number": 0
+                }
+            ],
+            "properties": {
+                "adapters": 1,
+                "aux": 5033
+            },
+            "status": "stopped",
+            "x": 300,
+            "y": 260
+        }
+    ],
+    "links": [
+        {
+            "link_id": "db689df2-9287-4172-9519-c6694eef02ad",
+            "link_type": "ethernet",
+            "nodes": [
+                {
+                    "node_id": "3e17ae4a-949f-4fcf-89fb-889ac1d85d95",
+                    "adapter_number": 0,
+                    "port_number": 0
+                },
+                {
+                    "node_id": "9bea1241-44f7-4a27-ae34-86643c1b799c",
+                    "adapter_number": 1,
+                    "port_number": 0
+                }
+            ]
+        },
+        {
+            "link_id": "6348b52c-bbfd-466f-bcab-fc3f63355315",
+            "link_type": "ethernet",
+            "nodes": [
+                {
+                    "node_id": "2d73998d-0c4a-472a-9590-457ccd020023",
+                    "adapter_number": 0,
+                    "port_number": 0
+                },
+                {
+                    "node_id": "9bea1241-44f7-4a27-ae34-86643c1b799c",
+                    "adapter_number": 2,
+                    "port_number": 0
+                }
+            ]
+        },
+        {
+            "link_id": "647ba29b-ad44-49c4-9c08-ac42d9a2c469",
+            "link_type": "ethernet",
+            "nodes": [
+                {
+                    "node_id": "9bea1241-44f7-4a27-ae34-86643c1b799c",
+                    "adapter_number": 0,
+                    "port_number": 0
+                },
+                {
+                    "node_id": "aca43a11-3d93-4fe5-8520-d47ac16a797c",
+                    "adapter_number": 0,
+                    "port_number": 0
+                }
+            ]
+        },
+        {
+            "link_id": "2731594d-4999-4fd1-a6db-59c5c395a858",
+            "link_type": "ethernet",
+            "nodes": [
+                {
+                    "node_id": "aca43a11-3d93-4fe5-8520-d47ac16a797c",
+                    "adapter_number": 1,
+                    "port_number": 0
+                },
+                {
+                    "node_id": "16e0e90b-40fd-453d-91c6-787d756af70c",
+                    "adapter_number": 0,
+                    "port_number": 0
+                }
+            ]
+        },
+        {
+            "link_id": "54204080-6861-40c7-8d57-6ab124f0365b",
+            "link_type": "ethernet",
+            "nodes": [
+                {
+                    "node_id": "148a6673-063d-410a-b74a-917d1770d97c",
+                    "adapter_number": 0,
+                    "port_number": 0
+                },
+                {
+                    "node_id": "16e0e90b-40fd-453d-91c6-787d756af70c",
+                    "adapter_number": 1,
+                    "port_number": 0
+                }
+            ]
+        },
+        {
+            "link_id": "aa857e8f-2aa3-428f-87f4-8761aa05a81f",
+            "link_type": "ethernet",
+            "nodes": [
+                {
+                    "node_id": "b563000c-f13f-45b3-a288-a6259f97774f",
+                    "adapter_number": 0,
+                    "port_number": 0
+                },
+                {
+                    "node_id": "16e0e90b-40fd-453d-91c6-787d756af70c",
+                    "adapter_number": 2,
+                    "port_number": 0
+                }
+            ]
+        },
+        {
+            "link_id": "8ceaa36c-d3c2-422b-a43d-eeb75993027c",
+            "link_type": "ethernet",
+            "nodes": [
+                {
+                    "node_id": "9bea1241-44f7-4a27-ae34-86643c1b799c",
+                    "adapter_number": 3,
+                    "port_number": 0
+                },
+                {
+                    "node_id": "1d02f527-dd6e-4ffc-a8c0-d565d92fdbc6",
+                    "adapter_number": 0,
+                    "port_number": 0
+                }
+            ]
+        },
+        {
+            "link_id": "b4614943-2e0a-4cf3-9ae7-00c150cbaa01",
+            "link_type": "ethernet",
+            "nodes": [
+                {
+                    "node_id": "16e0e90b-40fd-453d-91c6-787d756af70c",
+                    "adapter_number": 3,
+                    "port_number": 0
+                },
+                {
+                    "node_id": "0abc13ec-0362-4b7c-bdf5-8867f999d146",
+                    "adapter_number": 0,
+                    "port_number": 0
+                }
+            ]
+        },
+        {
+            "link_id": "7f719cfb-d252-47d7-875d-b014d0feceae",
+            "link_type": "ethernet",
+            "nodes": [
+                {
+                    "node_id": "9bea1241-44f7-4a27-ae34-86643c1b799c",
+                    "adapter_number": 4,
+                    "port_number": 0
+                },
+                {
+                    "node_id": "75a23da3-4656-44a7-998e-c296d0edd260",
+                    "adapter_number": 0,
+                    "port_number": 0
+                }
+            ]
+        },
+        {
+            "link_id": "82b7af1d-8930-4dd0-9d50-2ca56318d559",
+            "link_type": "ethernet",
+            "nodes": [
+                {
+                    "node_id": "95169dd1-6ca9-4c77-adac-72fe07c2bd84",
+                    "adapter_number": 0,
+                    "port_number": 0
+                },
+                {
+                    "node_id": "cae92590-130b-484f-9fbb-ebfc3fdfd9a6",
+                    "adapter_number": 1,
+                    "port_number": 0
+                }
+            ]
+        },
+        {
+            "link_id": "101c407c-e36f-422a-9a7a-c59f4aa80b0a",
+            "link_type": "ethernet",
+            "nodes": [
+                {
+                    "node_id": "1c96a6d0-8d90-4a73-b16f-8f0a353eec25",
+                    "adapter_number": 0,
+                    "port_number": 0
+                },
+                {
+                    "node_id": "cae92590-130b-484f-9fbb-ebfc3fdfd9a6",
+                    "adapter_number": 2,
+                    "port_number": 0
+                }
+            ]
+        },
+        {
+            "link_id": "016ad072-0eb7-4897-a675-75bfa8d65a1e",
+            "link_type": "ethernet",
+            "nodes": [
+                {
+                    "node_id": "cae92590-130b-484f-9fbb-ebfc3fdfd9a6",
+                    "adapter_number": 0,
+                    "port_number": 0
+                },
+                {
+                    "node_id": "a4db31e3-9b35-4bd6-a38d-5509ac62b6de",
+                    "adapter_number": 0,
+                    "port_number": 0
+                }
+            ]
+        },
+        {
+            "link_id": "33c8bca3-373e-47ba-9a54-8074a35c6cc0",
+            "link_type": "ethernet",
+            "nodes": [
+                {
+                    "node_id": "a4db31e3-9b35-4bd6-a38d-5509ac62b6de",
+                    "adapter_number": 1,
+                    "port_number": 0
+                },
+                {
+                    "node_id": "bddbf2c3-e098-41b3-a204-7387a7b8e099",
+                    "adapter_number": 0,
+                    "port_number": 0
+                }
+            ]
+        },
+        {
+            "link_id": "5b01659f-88fb-4a75-969e-82919d161614",
+            "link_type": "ethernet",
+            "nodes": [
+                {
+                    "node_id": "896d0fd4-4dc1-4a22-8a31-413c932b9776",
+                    "adapter_number": 0,
+                    "port_number": 0
+                },
+                {
+                    "node_id": "bddbf2c3-e098-41b3-a204-7387a7b8e099",
+                    "adapter_number": 1,
+                    "port_number": 0
+                }
+            ]
+        },
+        {
+            "link_id": "8c0c1b21-07ba-4bf8-a4bc-5c95f29242df",
+            "link_type": "ethernet",
+            "nodes": [
+                {
+                    "node_id": "21809cd8-b090-4a90-81ed-1e8f06e5576f",
+                    "adapter_number": 0,
+                    "port_number": 0
+                },
+                {
+                    "node_id": "bddbf2c3-e098-41b3-a204-7387a7b8e099",
+                    "adapter_number": 2,
+                    "port_number": 0
+                }
+            ]
+        }
+    ]
+}
