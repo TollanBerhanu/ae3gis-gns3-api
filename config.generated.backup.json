@@ -22,8 +22,7 @@
             },
             "status": "started",
             "x": -300,
-            "y": -250,
-            "assigned_ip": "192.168.0.100"
+            "y": -250
         },
         {
             "name": "Workstation-2",
@@ -45,8 +44,7 @@
             },
             "status": "started",
             "x": 300,
-            "y": -250,
-            "assigned_ip": "192.168.0.101"
+            "y": -250
         },
         {
             "name": "DHCP-Server-1",
@@ -176,8 +174,7 @@
             },
             "status": "started",
             "x": 0,
-            "y": 0,
-            "assigned_ip": "192.168.0.102"
+            "y": 0
         },
         {
             "name": "OpenvSwitch-OT",
@@ -281,8 +278,7 @@
             },
             "status": "started",
             "x": -300,
-            "y": 260,
-            "assigned_ip": "192.168.0.101"
+            "y": 260
         },
         {
             "name": "PLC-2",
@@ -304,8 +300,7 @@
             },
             "status": "started",
             "x": 300,
-            "y": 260,
-            "assigned_ip": "192.168.0.102"
+            "y": 260
         },
         {
             "name": "DHCP-Server-2",
