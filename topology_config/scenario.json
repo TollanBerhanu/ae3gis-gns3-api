@@ -1,27 +1,35 @@
 {
   "gns3_server_ip":"192.168.56.101",
-  "project_name": "ae3gis-test",
-  "project_id": "fafbf8a3-4cd5-46e8-b368-3322952400c8",
+  "project_name": "ae3gis-scenario-builder-test",
+  "project_id": "2b54d41e-c6fa-4f41-8c60-531eef7fd69d",
 
   "templates": {
-    "workstation": "9d29dc82-15d9-4af9-b2b9-9645c7a61bc9",
+    "benign_client": "73b058f2-f68a-4c4d-ab63-10e204b982b0",
+    "malicious_client": "c3f502e2-5ce5-4c8b-882c-c4bfc75f082d",
     "openvswitch": "1cd31b8f-8afc-40f7-b9f3-92c4d124b695",
-    "firewall": "0f07952b-67a9-4a42-96f5-575d27969ac4",
-    "vpcs": "8844d08d-40d1-4f30-832b-954c69d19781"
+    "firewall": "6d55110d-61c6-47e0-a8a9-ab7a82027d59",
+    "isc_dhcp_server": "11daf0e0-afa9-4d36-94cd-04ff92b3d7ae",
+    "vpcs": "19021f99-e36f-394d-b4a1-8aaa902ab9cc"
   },
 
   "nodes": [
     {
       "name": "Workstation-1",
-      "template_id": "9d29dc82-15d9-4af9-b2b9-9645c7a61bc9",
+      "template_id": "73b058f2-f68a-4c4d-ab63-10e204b982b0",
       "x": -300,
       "y": -250
     },
     {
       "name": "Workstation-2",
-      "template_id": "9d29dc82-15d9-4af9-b2b9-9645c7a61bc9",
+      "template_id": "73b058f2-f68a-4c4d-ab63-10e204b982b0",
       "x": 300,
       "y": -250
+    },
+    {
+      "name": "DHCP-Server-1",
+      "template_id": "11daf0e0-afa9-4d36-94cd-04ff92b3d7ae",
+      "x": 300,
+      "y": -80
     },
 
     {
@@ -33,7 +41,7 @@
 
     {
       "name": "IPTables-Firewall",
-      "template_id": "0f07952b-67a9-4a42-96f5-575d27969ac4",
+      "template_id": "6d55110d-61c6-47e0-a8a9-ab7a82027d59",
       "x": 0,
       "y": 0
     },
@@ -47,15 +55,22 @@
 
     {
       "name": "PLC-1",
-      "template_id": "8844d08d-40d1-4f30-832b-954c69d19781",
+      "template_id": "c3f502e2-5ce5-4c8b-882c-c4bfc75f082d",
       "x": -300,
       "y": 260
     },
     {
       "name": "PLC-2",
-      "template_id": "8844d08d-40d1-4f30-832b-954c69d19781",
+      "template_id": "c3f502e2-5ce5-4c8b-882c-c4bfc75f082d",
       "x": 300,
       "y": 260
+    },
+    
+    {
+      "name": "DHCP-Server-2",
+      "template_id": "11daf0e0-afa9-4d36-94cd-04ff92b3d7ae",
+      "x": 300,
+      "y": 50
     }
   ],
 
@@ -74,13 +89,19 @@
     },
     {
       "nodes": [
-        { "node_id": "OpenvSwitch-IT",     "adapter_number": 0, "port_number": 0 },
-        { "node_id": "NODE_FIREWALL",   "adapter_number": 0, "port_number": 0 }
+        { "node_id": "DHCP-Server-1",  "adapter_number": 0, "port_number": 0 },
+        { "node_id": "OpenvSwitch-IT", "adapter_number": 3, "port_number": 0 }
       ]
     },
     {
       "nodes": [
-        { "node_id": "NODE_FIREWALL",   "adapter_number": 1, "port_number": 0 },
+        { "node_id": "OpenvSwitch-IT",     "adapter_number": 0, "port_number": 0 },
+        { "node_id": "IPTables-Firewall",   "adapter_number": 0, "port_number": 0 }
+      ]
+    },
+    {
+      "nodes": [
+        { "node_id": "IPTables-Firewall",   "adapter_number": 1, "port_number": 0 },
         { "node_id": "OpenvSwitch-OT",     "adapter_number": 0, "port_number": 0 }
       ]
     },
@@ -94,6 +115,12 @@
       "nodes": [
         { "node_id": "PLC-2",  "adapter_number": 0, "port_number": 0 },
         { "node_id": "OpenvSwitch-OT", "adapter_number": 2, "port_number": 0 }
+      ]
+    },
+    {
+      "nodes": [
+        { "node_id": "DHCP-Server-2",  "adapter_number": 0, "port_number": 0 },
+        { "node_id": "OpenvSwitch-OT", "adapter_number": 3, "port_number": 0 }
       ]
     }
   ]
