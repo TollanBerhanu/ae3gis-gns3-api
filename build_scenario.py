@@ -7,7 +7,7 @@ import sys
 import time
 import requests
 
-# -------------------- HTTP helpers --------------------
+# HTTP helper functions
 def gns3_get(s, url):
     r = s.get(url)
     r.raise_for_status()
@@ -18,14 +18,14 @@ def gns3_post(s, url, json=None):
     r.raise_for_status()
     return r.json() if r.text else {}
 
-# -------------------- Project helpers --------------------
+# Find Project ID by name
 def find_project_id(s, base_url, project_name):
     for p in gns3_get(s, f"{base_url}/v2/projects"):
         if p.get("name") == project_name:
             return p["project_id"]
     raise SystemExit(f"[ERROR] Project named '{project_name}' not found")
 
-# -------------------- Node / Link helpers --------------------
+# Add Node / Create Link
 def add_node_from_template(s, base_url, project_id, template_id, name, x, y):
     url = f"{base_url}/v2/projects/{project_id}/templates/{template_id}"
     payload = {"x": x, "y": y, "name": name}
@@ -51,7 +51,7 @@ def start_node(s, base_url, project_id, node_id):
         print(f"[WARN] Could not start node {node_id}: {e}", file=sys.stderr)
         return False
 
-# -------------------- Placeholder aliasing for links --------------------
+# Placeholder aliasing for links
 NON_ALNUM = re.compile(r"[^A-Za-z0-9]+")
 def _alias_base(name): return NON_ALNUM.sub("_", name).strip("_").upper()
 
@@ -77,7 +77,7 @@ def resolve_endpoint(ref, name_to_id, alias_to_id):
         return ref
     raise SystemExit(f"[ERROR] Unresolved link endpoint '{ref}'")
 
-# -------------------- Config file builder --------------------
+# -------------------- Build Config file --------------------
 def make_config_record(project_name, project_id, nodes_detail, links_detail):
     cfg = {
         "project_name": project_name or "",

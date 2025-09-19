@@ -1,15 +1,3 @@
-#!/usr/bin/env python3
-# Bulk DHCP + DHCP server start for GNS3 (Windows-friendly, simple)
-# - Starts DHCP servers first (nodes whose NAME contains "dhcp") via /usr/local/bin/start.sh
-# - Then runs dhclient on all other nodes (skipping names containing switch/openvswitch/ovs)
-# - Updates SAME config file (config.generated.json by default) with "assigned_ip" per node
-#
-# Usage:
-#   python simple_bulk_dhcp.py --config config.generated.json --host 192.168.56.101
-# Options:
-#   --timeout <sec>  : seconds to wait for dhclient output (default 15)
-#   --dhcp-warmup <sec> : sleep after starting DHCP servers (default 2)
-
 import argparse
 import asyncio
 import json
@@ -20,7 +8,7 @@ import sys
 import time
 
 try:
-    import telnetlib3  # pip install telnetlib3
+    import telnetlib3 
 except ImportError:
     print("Please install telnetlib3: pip install telnetlib3", file=sys.stderr)
     sys.exit(1)
@@ -63,7 +51,6 @@ async def telnet_run(host: str, port: int, command: str, read_secs: float = 5.0)
 
         return "".join(buf)
     finally:
-        # Always leave the console cleanly
         try:
             writer.write("exit\r")
             await writer.drain()
@@ -107,7 +94,7 @@ async def telnet_run_dhclient_and_show_ip(host: str, port: int, read_secs: float
 
         return "".join(buf)
     finally:
-        # Always exit so GNS3 console stays free
+        # Exit so GNS3 console stays free
         try:
             writer.write("exit\r")
             await writer.drain()
@@ -171,7 +158,7 @@ def main():
         except Exception as e:
             print(f"[ERROR] DHCP '{name}': start failed: {e}")
 
-    # Give servers a moment to bind interfaces / leases
+    # Give servers a moment to bind interfaces
     if args.dhcp_warmup > 0:
         print(f"[INFO] Waiting {args.dhcp_warmup:.1f}s for DHCP servers to warm up...")
         time.sleep(args.dhcp_warmup)
