@@ -59,3 +59,130 @@ What it does:
   If `dhclient` isn’t installed in a node, that node may remain without `assigned_ip`.
 * **Firewalls and switches**: currently, firewalls are treated as regular nodes unless their name matches the switch/DHCP patterns. If you want a different behavior, rename or ping me to tweak filters.
 * If Telnet consoles are bound to `127.0.0.1` inside the GNS3 VM, use `--host <GNS3 VM IP>` so your Windows host can reach them.
+
+---
+
+## 3) Run the FastAPI service
+
+The CLI tools above are now available via a REST API powered by FastAPI.
+
+### Create and activate a virtual environment (Windows PowerShell)
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+### Start the API with Uvicorn
+
+```powershell
+uvicorn api.main:app --reload
+```
+
+* `--reload` restarts the server when you edit code (handy during development).
+* By default the service listens on `http://127.0.0.1:8000`.
+
+### Built-in docs
+
+Open `http://127.0.0.1:8000/docs` for Swagger UI or `http://127.0.0.1:8000/redoc` for ReDoc.
+
+---
+
+## 4) Interacting with the API
+
+Below are example `curl` calls. You can also use Postman, HTTPie, or the Swagger UI “Try it out” buttons.
+
+### Health check
+
+```powershell
+curl http://127.0.0.1:8000/health
+```
+
+Expect `{"status":"ok"}` when the service is up.
+
+### Build a scenario
+
+```powershell
+curl -X POST http://127.0.0.1:8000/scenario/build `
+  -H "Content-Type: application/json" `
+  -d @topology_config/scenario.json
+```
+
+Notes:
+
+* The payload reuses the same JSON you feed into `build_scenario.py`.
+* To override the GNS3 API endpoint or authentication, extend the body:
+
+  ```json
+  {
+    "scenario": { ... },
+    "base_url": "http://172.16.194.129:80",
+    "username": "admin",
+    "password": "supersecret",
+    "start_nodes": true,
+    "config_path": "config.generated.json"
+  }
+  ```
+
+* The response includes the project id/name, nodes/links created, and where the config file was written.
+
+### Run DHCP assignment
+
+```powershell
+curl -X POST http://127.0.0.1:8000/dhcp/assign `
+  -H "Content-Type: application/json" `
+  -d '{"host_override":"172.16.194.129","dhcp_warmup":2,"dhclient_timeout":15}'
+```
+
+Response fields mirror the CLI output: results for each DHCP server/client run, whether the config was updated, and the path of any backup file.
+
+### Upload a script to multiple nodes
+
+Prepare a JSON file, e.g. `payloads/iptables.json`:
+
+```json
+{
+  "host_override": "172.16.194.129",
+  "concurrency": 3,
+  "scripts": [
+    {
+      "node_name": "IPTables-Firewall",
+      "local_path": "scripts/firewall/hardening.sh",
+      "remote_path": "/opt/hardening.sh",
+      "run_after_upload": true,
+      "overwrite": true,
+      "run_timeout": 20,
+      "shell": "bash"
+    }
+  ]
+}
+```
+
+Then call:
+
+```powershell
+curl -X POST http://127.0.0.1:8000/scripts/push `
+  -H "Content-Type: application/json" `
+  -d @payloads/iptables.json
+```
+
+Each item reports upload status (including base64 decode or chmod errors) and optional execution output.
+
+### Run an existing script
+
+```powershell
+curl -X POST http://127.0.0.1:8000/scripts/run `
+  -H "Content-Type: application/json" `
+  -d '{"host_override":"172.16.194.129","runs":[{"node_name":"Workstation-1","remote_path":"/opt/hardening.sh","shell":"bash","timeout":15}]}'
+```
+
+The response includes exit codes, stdout, and stderr for each node’s execution attempt.
+
+---
+
+## Troubleshooting
+
+* **401/403 from GNS3** – double-check credentials or API token. If Basic auth is required, pass `username` and `password` in the scenario build payload.
+* **Telnet timeouts** – confirm the consoles are reachable from the machine running the API (use `host_override` if the config contains `0.0.0.0`).
+* **Script path errors** – the API validates that `local_path` resides under the configured scripts directory (defaults to `scripts/`). Update `GNS3_API_SCRIPTS_DIR` if you store scripts elsewhere.

@@ -1,7 +1,7 @@
 {
   "gns3_server_ip":"192.168.56.101",
-  "project_name": "ae3gis-scenario-builder-test",
-  "project_id": "2b54d41e-c6fa-4f41-8c60-531eef7fd69d",
+  "project_name": "ae3gis-scenario-builder-test-2",
+  "project_id": "1e55c820-c095-4555-a84f-a1c843f830a2",
 
   "templates": {
     "benign_client": "73b058f2-f68a-4c4d-ab63-10e204b982b0",
