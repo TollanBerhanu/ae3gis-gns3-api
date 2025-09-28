@@ -11,7 +11,7 @@ from pydantic_settings import BaseSettings
 class APISettings(BaseSettings):
     """Configuration options for the API layer."""
 
-    config_path: Path = Field(Path("config.generated.json"), description="Path to the generated config JSON file.")
+    config_path: Path = Field(Path("./config/config.generated.json"), description="Path to the generated config JSON file.")
     scripts_dir: Path = Field(Path("scripts"), description="Base directory containing pushable scripts.")
     gns3_request_delay: float = Field(0.0, ge=0.0, description="Optional delay between GNS3 API requests.")
 
