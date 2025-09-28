@@ -10,63 +10,63 @@ Build the Scenairo:
   "scenario": {
     "gns3_server_ip": "192.168.56.101",
     "project_name": "ae3gis-scenario-builder-test",
-    "project_id": "2b54d41e-c6fa-4f41-8c60-531eef7fd69d",
+    "project_id": "8b26f4d4-5445-4e86-86a0-d46944d8e85b",
 
     "templates": {
-      "test-client": "749baf44-97ea-40a7-8eb3-3793f13a775a",
-      "nginx-server": "c40b3744-575c-446e-9d26-e28b7f0a8c9b"
+      "test-client": "df206cef-efd5-45dc-93d4-1f94c31cfb16",
+      "nginx-server": "65ac4263-d944-4b7d-a068-5a836b29319f"
     },
 
     "nodes": [
-      { "name": "Client-401", "template_id": "749baf44-97ea-40a7-8eb3-3793f13a775a", "x": -300, "y": -250 },
-      { "name": "Client-402", "template_id": "749baf44-97ea-40a7-8eb3-3793f13a775a", "x": -250, "y": -250 },
-      { "name": "Client-403", "template_id": "749baf44-97ea-40a7-8eb3-3793f13a775a", "x": -200, "y": -250 },
-      { "name": "Client-404", "template_id": "749baf44-97ea-40a7-8eb3-3793f13a775a", "x": -150, "y": -250 },
-      { "name": "Client-405", "template_id": "749baf44-97ea-40a7-8eb3-3793f13a775a", "x": -100, "y": -250 },
-      { "name": "Client-406", "template_id": "749baf44-97ea-40a7-8eb3-3793f13a775a", "x": -50, "y": -250 },
-      { "name": "Client-407", "template_id": "749baf44-97ea-40a7-8eb3-3793f13a775a", "x": 0, "y": -250 },
-      { "name": "Client-408", "template_id": "749baf44-97ea-40a7-8eb3-3793f13a775a", "x": 50, "y": -250 },
-      { "name": "Client-409", "template_id": "749baf44-97ea-40a7-8eb3-3793f13a775a", "x": 100, "y": -250 },
-      { "name": "Client-410", "template_id": "749baf44-97ea-40a7-8eb3-3793f13a775a", "x": 150, "y": -250 },
-      { "name": "Client-411", "template_id": "749baf44-97ea-40a7-8eb3-3793f13a775a", "x": 200, "y": -250 },
-      { "name": "Client-412", "template_id": "749baf44-97ea-40a7-8eb3-3793f13a775a", "x": 250, "y": -250 },
-      { "name": "Client-413", "template_id": "749baf44-97ea-40a7-8eb3-3793f13a775a", "x": 300, "y": -250 },
+      { "name": "Client-**01", "template_id": "df206cef-efd5-45dc-93d4-1f94c31cfb16", "x": -300, "y": -250 },
+      { "name": "Client-**02", "template_id": "df206cef-efd5-45dc-93d4-1f94c31cfb16", "x": -250, "y": -250 },
+      { "name": "Client-**03", "template_id": "df206cef-efd5-45dc-93d4-1f94c31cfb16", "x": -200, "y": -250 },
+      { "name": "Client-**04", "template_id": "df206cef-efd5-45dc-93d4-1f94c31cfb16", "x": -150, "y": -250 },
+      { "name": "Client-**05", "template_id": "df206cef-efd5-45dc-93d4-1f94c31cfb16", "x": -100, "y": -250 },
+      { "name": "Client-**06", "template_id": "df206cef-efd5-45dc-93d4-1f94c31cfb16", "x": -50, "y": -250 },
+      { "name": "Client-**07", "template_id": "df206cef-efd5-45dc-93d4-1f94c31cfb16", "x": 0, "y": -250 },
+      { "name": "Client-**08", "template_id": "df206cef-efd5-45dc-93d4-1f94c31cfb16", "x": 50, "y": -250 },
+      { "name": "Client-**09", "template_id": "df206cef-efd5-45dc-93d4-1f94c31cfb16", "x": 100, "y": -250 },
+      { "name": "Client-**10", "template_id": "df206cef-efd5-45dc-93d4-1f94c31cfb16", "x": 150, "y": -250 },
+      { "name": "Client-**11", "template_id": "df206cef-efd5-45dc-93d4-1f94c31cfb16", "x": 200, "y": -250 },
+      { "name": "Client-**12", "template_id": "df206cef-efd5-45dc-93d4-1f94c31cfb16", "x": 250, "y": -250 },
+      { "name": "Client-**13", "template_id": "df206cef-efd5-45dc-93d4-1f94c31cfb16", "x": 300, "y": -250 },
 			{
 				"name": "OpenvSwitch-41",
-				"template_id": "1cd31b8f-8afc-40f7-b9f3-92c4d124b695",
+				"template_id": "e257b341-cec3-4076-a239-181c5101ff37",
 				"x": 0,
 				"y": -140
 			},
 			{
-				"name": "DHCP-41",
-				"template_id": "11daf0e0-afa9-4d36-94cd-04ff92b3d7ae",
+				"name": "DHCP-**01",
+				"template_id": "3cecbf43-5f8b-4678-97f3-6ace71b02853",
 				"x": 0,
 				"y": 0
 			},
 			{
-				"name": "Server-41",
-				"template_id": "c40b3744-575c-446e-9d26-e28b7f0a8c9b",
+				"name": "Server-**01",
+				"template_id": "65ac4263-d944-4b7d-a068-5a836b29319f",
 				"x": 300,
 				"y": -250
 			}
     ],
 
     "links": [
-      { "nodes": [ { "node_id": "Client-401", "adapter_number": 0, "port_number": 0 }, { "node_id": "OpenvSwitch-41", "adapter_number": 1, "port_number": 0 } ] },
-      { "nodes": [ { "node_id": "Client-402", "adapter_number": 0, "port_number": 0 }, { "node_id": "OpenvSwitch-41", "adapter_number": 2, "port_number": 0 } ] },
-      { "nodes": [ { "node_id": "Client-403", "adapter_number": 0, "port_number": 0 }, { "node_id": "OpenvSwitch-41", "adapter_number": 3, "port_number": 0 } ] },
-      { "nodes": [ { "node_id": "Client-404", "adapter_number": 0, "port_number": 0 }, { "node_id": "OpenvSwitch-41", "adapter_number": 4, "port_number": 0 } ] },
-      { "nodes": [ { "node_id": "Client-405", "adapter_number": 0, "port_number": 0 }, { "node_id": "OpenvSwitch-41", "adapter_number": 5, "port_number": 0 } ] },
-      { "nodes": [ { "node_id": "Client-406", "adapter_number": 0, "port_number": 0 }, { "node_id": "OpenvSwitch-41", "adapter_number": 6, "port_number": 0 } ] },
-      { "nodes": [ { "node_id": "Client-407", "adapter_number": 0, "port_number": 0 }, { "node_id": "OpenvSwitch-41", "adapter_number": 7, "port_number": 0 } ] },
-      { "nodes": [ { "node_id": "Client-408", "adapter_number": 0, "port_number": 0 }, { "node_id": "OpenvSwitch-41", "adapter_number": 8, "port_number": 0 } ] },
-      { "nodes": [ { "node_id": "Client-409", "adapter_number": 0, "port_number": 0 }, { "node_id": "OpenvSwitch-41", "adapter_number": 9, "port_number": 0 } ] },
-      { "nodes": [ { "node_id": "Client-410", "adapter_number": 0, "port_number": 0 }, { "node_id": "OpenvSwitch-41", "adapter_number": 10, "port_number": 0 } ] },
-      { "nodes": [ { "node_id": "Client-411", "adapter_number": 0, "port_number": 0 }, { "node_id": "OpenvSwitch-41", "adapter_number": 11, "port_number": 0 } ] },
-      { "nodes": [ { "node_id": "Client-412", "adapter_number": 0, "port_number": 0 }, { "node_id": "OpenvSwitch-41", "adapter_number": 12, "port_number": 0 } ] },
-      { "nodes": [ { "node_id": "Client-413", "adapter_number": 0, "port_number": 0 }, { "node_id": "OpenvSwitch-41", "adapter_number": 13, "port_number": 0 } ] },
-      { "nodes": [ { "node_id": "Server-41", "adapter_number": 0, "port_number": 0 }, { "node_id": "OpenvSwitch-41", "adapter_number": 14, "port_number": 0 } ] },
-      { "nodes": [ { "node_id": "DHCP-41", "adapter_number": 0, "port_number": 0 }, { "node_id": "OpenvSwitch-41", "adapter_number": 15, "port_number": 0 } ] }
+      { "nodes": [ { "node_id": "Client-**01", "adapter_number": 0, "port_number": 0 }, { "node_id": "OpenvSwitch-41", "adapter_number": 1, "port_number": 0 } ] },
+      { "nodes": [ { "node_id": "Client-**02", "adapter_number": 0, "port_number": 0 }, { "node_id": "OpenvSwitch-41", "adapter_number": 2, "port_number": 0 } ] },
+      { "nodes": [ { "node_id": "Client-**03", "adapter_number": 0, "port_number": 0 }, { "node_id": "OpenvSwitch-41", "adapter_number": 3, "port_number": 0 } ] },
+      { "nodes": [ { "node_id": "Client-**04", "adapter_number": 0, "port_number": 0 }, { "node_id": "OpenvSwitch-41", "adapter_number": 4, "port_number": 0 } ] },
+      { "nodes": [ { "node_id": "Client-**05", "adapter_number": 0, "port_number": 0 }, { "node_id": "OpenvSwitch-41", "adapter_number": 5, "port_number": 0 } ] },
+      { "nodes": [ { "node_id": "Client-**06", "adapter_number": 0, "port_number": 0 }, { "node_id": "OpenvSwitch-41", "adapter_number": 6, "port_number": 0 } ] },
+      { "nodes": [ { "node_id": "Client-**07", "adapter_number": 0, "port_number": 0 }, { "node_id": "OpenvSwitch-41", "adapter_number": 7, "port_number": 0 } ] },
+      { "nodes": [ { "node_id": "Client-**08", "adapter_number": 0, "port_number": 0 }, { "node_id": "OpenvSwitch-41", "adapter_number": 8, "port_number": 0 } ] },
+      { "nodes": [ { "node_id": "Client-**09", "adapter_number": 0, "port_number": 0 }, { "node_id": "OpenvSwitch-41", "adapter_number": 9, "port_number": 0 } ] },
+      { "nodes": [ { "node_id": "Client-**10", "adapter_number": 0, "port_number": 0 }, { "node_id": "OpenvSwitch-41", "adapter_number": 10, "port_number": 0 } ] },
+      { "nodes": [ { "node_id": "Client-**11", "adapter_number": 0, "port_number": 0 }, { "node_id": "OpenvSwitch-41", "adapter_number": 11, "port_number": 0 } ] },
+      { "nodes": [ { "node_id": "Client-**12", "adapter_number": 0, "port_number": 0 }, { "node_id": "OpenvSwitch-41", "adapter_number": 12, "port_number": 0 } ] },
+      { "nodes": [ { "node_id": "Client-**13", "adapter_number": 0, "port_number": 0 }, { "node_id": "OpenvSwitch-41", "adapter_number": 13, "port_number": 0 } ] },
+      { "nodes": [ { "node_id": "Server-**01", "adapter_number": 0, "port_number": 0 }, { "node_id": "OpenvSwitch-41", "adapter_number": 14, "port_number": 0 } ] },
+      { "nodes": [ { "node_id": "DHCP-**01", "adapter_number": 0, "port_number": 0 }, { "node_id": "OpenvSwitch-41", "adapter_number": 15, "port_number": 0 } ] }
     ]
   }
 }
@@ -82,7 +82,7 @@ Build the Scenairo:
 {
   "scripts": [
     {
-      "node_name": "Server-41",
+      "node_name": "Server-**01",
       "local_path": "./run_server.sh",
       "remote_path": "/run_server.sh",
       "run_after_upload": true,
@@ -102,7 +102,7 @@ Build the Scenairo:
 {
   "scripts": [
     {
-      "node_name": "DHCP-41",
+      "node_name": "DHCP-**01",
       "local_path": "./run_dhcp.sh",
       "remote_path": "/usr/run_dhcp.sh",
       "run_after_upload": true,
@@ -123,7 +123,7 @@ Build the Scenairo:
   "scripts": [
 		
     {
-      "node_name": "Client-401",
+      "node_name": "Client-**01",
       "local_path": "./run_http.sh",
       "remote_path": "/usr/run_http.sh",
       "run_after_upload": true,
@@ -133,7 +133,7 @@ Build the Scenairo:
       "shell": "sh"
     },
     {
-      "node_name": "Client-402",
+      "node_name": "Client-**02",
       "local_path": "./run_http.sh",
       "remote_path": "/usr/run_http.sh",
       "run_after_upload": true,
@@ -143,7 +143,7 @@ Build the Scenairo:
       "shell": "sh"
     },
     {
-      "node_name": "Client-403",
+      "node_name": "Client-**03",
       "local_path": "./run_http.sh",
       "remote_path": "/usr/run_http.sh",
       "run_after_upload": true,
@@ -153,7 +153,7 @@ Build the Scenairo:
       "shell": "sh"
     },
     {
-      "node_name": "Client-404",
+      "node_name": "Client-**04",
       "local_path": "./run_http.sh",
       "remote_path": "/usr/run_http.sh",
       "run_after_upload": true,
@@ -163,7 +163,7 @@ Build the Scenairo:
       "shell": "sh"
     },
     {
-      "node_name": "Client-405",
+      "node_name": "Client-**05",
       "local_path": "./run_http.sh",
       "remote_path": "/usr/run_http.sh",
       "run_after_upload": true,
@@ -173,7 +173,7 @@ Build the Scenairo:
       "shell": "sh"
     },
     {
-      "node_name": "Client-406",
+      "node_name": "Client-**06",
       "local_path": "./run_http.sh",
       "remote_path": "/usr/run_http.sh",
       "run_after_upload": true,
@@ -183,7 +183,7 @@ Build the Scenairo:
       "shell": "sh"
     },
     {
-      "node_name": "Client-407",
+      "node_name": "Client-**07",
       "local_path": "./run_http.sh",
       "remote_path": "/usr/run_http.sh",
       "run_after_upload": true,
@@ -193,7 +193,7 @@ Build the Scenairo:
       "shell": "sh"
     },
     {
-      "node_name": "Client-408",
+      "node_name": "Client-**08",
       "local_path": "./run_http.sh",
       "remote_path": "/usr/run_http.sh",
       "run_after_upload": true,
@@ -203,7 +203,7 @@ Build the Scenairo:
       "shell": "sh"
     },
     {
-      "node_name": "Client-409",
+      "node_name": "Client-**09",
       "local_path": "./run_http.sh",
       "remote_path": "/usr/run_http.sh",
       "run_after_upload": true,
@@ -213,7 +213,7 @@ Build the Scenairo:
       "shell": "sh"
     },
     {
-      "node_name": "Client-410",
+      "node_name": "Client-**10",
       "local_path": "./run_http.sh",
       "remote_path": "/usr/run_http.sh",
       "run_after_upload": true,
@@ -223,7 +223,7 @@ Build the Scenairo:
       "shell": "sh"
     },
     {
-      "node_name": "Client-411",
+      "node_name": "Client-**11",
       "local_path": "./run_http.sh",
       "remote_path": "/usr/run_http.sh",
       "run_after_upload": true,
@@ -233,7 +233,7 @@ Build the Scenairo:
       "shell": "sh"
     },
     {
-      "node_name": "Client-412",
+      "node_name": "Client-**12",
       "local_path": "./run_http.sh",
       "remote_path": "/usr/run_http.sh",
       "run_after_upload": true,
@@ -243,7 +243,7 @@ Build the Scenairo:
       "shell": "sh"
     },
     {
-      "node_name": "Client-413",
+      "node_name": "Client-**13",
       "local_path": "./run_http.sh",
       "remote_path": "/usr/run_http.sh",
       "run_after_upload": true,
