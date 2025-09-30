@@ -16,7 +16,7 @@ from models import APISettings
 def get_settings() -> APISettings:
     """Return application settings (cached for process lifetime)."""
 
-    return APISettings()
+    return APISettings()  # type: ignore[call-arg]
 
 
 def get_config_store(settings: APISettings = Depends(get_settings)) -> ConfigStore:
