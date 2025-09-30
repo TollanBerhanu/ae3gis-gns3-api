@@ -38,6 +38,8 @@ def create_app() -> FastAPI:
                 cache_path=settings.templates_cache_path,
                 username=settings.gns3_username,
                 password=settings.gns3_password,
+                server_ip=settings.gns3_server_ip,
+                server_port=settings.gns3_server_port,
             )
 
         try:
