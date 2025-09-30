@@ -1,3 +1,8 @@
 /.venv
 /old-scripts
 __pycache__
+.env
+*.generated.json
+*.log
+.DS_Store
+.vscode
