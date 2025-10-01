@@ -1,6 +1,11 @@
 import requests
+from dotenv import load_dotenv
 
-BASE = "http://192.168.56.101:80/v2"
+load_dotenv() 
+
+gns3_server_ip = os.getenv("GNS3_SERVER_IP") or '192.168.56.101'
+gns3_server_port = os.getenv("GNS3_SERVER_PORT") or '80'
+BASE = f"http://{gns3_server_ip}:{gns3_server_port}/v2"
 PROJECT_NAME = "ae3gis-scenario-builder-test"   # change me
 # project_id = '8b26f4d4-5445-4e86-86a0-d46944d8e85b' #project.project_id
 AUTH = None                  # e.g., ('admin','password') if auth enabled
