@@ -7,7 +7,9 @@ from pathlib import Path
 
 from pydantic import Field, computed_field
 from pydantic_settings import BaseSettings
+from dotenv import load_dotenv
 
+load_dotenv()  # take environment variables
 
 class APISettings(BaseSettings):
     """Configuration options for the API layer."""
@@ -20,7 +22,7 @@ class APISettings(BaseSettings):
         description="Optional explicit base URL for the GNS3 REST API.",
     )
     gns3_server_ip: str = Field(
-        default_factory=lambda: os.getenv("GNS3_SERVER_IP") or "172.16.194.129",
+        default_factory=lambda: os.getenv("GNS3_SERVER_IP") or '192.168.56.101',
         description="IP address or hostname of the GNS3 server.",
     )
     gns3_server_port: int = Field(
