@@ -3,7 +3,7 @@ SERVER_IP="192.168.0.100"
 # requests per batch
 CONCURRENCY="${CONCURRENCY:-20}"
 
-dhclient -v -1
+#dhclient -v -1
 
 echo "[http] Server=$SERVER_IP Interval=${INTERVAL}s Concurrency=$CONCURRENCY"
 
