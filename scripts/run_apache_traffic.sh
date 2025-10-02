@@ -19,7 +19,7 @@ while true; do
   sleep "$sleep_for"
 
   # choose a random host from the HOSTS array
-  TARGET="192.168.0.101"
+  TARGET="192.168.0.102"
 
   # perform curl (discard body), capture exit status
   if curl -sS --max-time "$CURL_TIMEOUT" "http://$TARGET:$PORT/" >/dev/null; then
