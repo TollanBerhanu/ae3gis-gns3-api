@@ -1,5 +1,3 @@
-Here’s a short, corrected README you can drop in:
-
 ````markdown
 # AE3GIS GNS3 API — Quick Start
 
