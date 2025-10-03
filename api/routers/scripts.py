@@ -32,8 +32,8 @@ def _ensure_node(config: dict, node_name: str):
     return node
 
 
-def _ensure_console(node: dict, node_name: str, host_override: str | None) -> tuple[str, int]:
-    target = resolve_console_target(node, host_override)
+def _ensure_console(node: dict, node_name: str, gns3_server_ip: str | None) -> tuple[str, int]:
+    target = resolve_console_target(node, gns3_server_ip)
     if target is None:
         raise HTTPException(status_code=400, detail=f"Node '{node_name}' does not expose a telnet console")
     return target
@@ -53,7 +53,7 @@ async def push_scripts(
     tasks: list[ScriptTask] = []
     for item in payload.scripts:
         node = _ensure_node(config, item.node_name)
-        host, port = _ensure_console(node, item.node_name, payload.host_override)
+        host, port = _ensure_console(node, item.node_name, payload.gns3_server_ip)
         try:
             spec = ScriptSpec(
                 local_path=item.local_path,
@@ -83,12 +83,12 @@ async def push_scripts(
 async def _run_single(
     item,
     config: dict,
-    host_override: str | None,
+    gns3_server_ip: str | None,
     pusher: ScriptPusher,
     semaphore: asyncio.Semaphore,
 ) -> ScriptExecutionResult:
     node = _ensure_node(config, item.node_name)
-    host, port = _ensure_console(node, item.node_name, host_override)
+    host, port = _ensure_console(node, item.node_name, gns3_server_ip)
     async with semaphore:
         return await pusher.run(
             item.node_name,
@@ -113,7 +113,7 @@ async def run_scripts(
     semaphore = asyncio.Semaphore(max(1, payload.concurrency))
     results = await asyncio.gather(
         *(
-            _run_single(item, config, payload.host_override, pusher, semaphore)
+            _run_single(item, config, payload.gns3_server_ip, pusher, semaphore)
             for item in payload.runs
         )
     )

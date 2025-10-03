@@ -20,7 +20,7 @@ class ScriptPushItem(BaseModel):
 
 class ScriptPushRequest(BaseModel):
     scripts: list[ScriptPushItem]
-    host_override: str | None = None
+    gns3_server_ip: str | None = None
     concurrency: int = Field(default=5, ge=1, description="Maximum concurrent uploads.")
 
 
@@ -67,7 +67,7 @@ class ScriptRunItem(BaseModel):
 
 class ScriptRunRequest(BaseModel):
     runs: list[ScriptRunItem]
-    host_override: str | None = None
+    gns3_server_ip: str | None = None
     concurrency: int = Field(default=5, ge=1)
 
 

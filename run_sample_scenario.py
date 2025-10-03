@@ -238,7 +238,7 @@ def push_script(node_name: str, local_path: str, remote_path: str, shell: str = 
             "run_timeout": timeout,
             "shell": shell
         }],
-        "host_override": GNS3_BASE_URL,
+        "gns3_server_ip": GNS3_BASE_URL,
         "concurrency": SCRIPTS_CONCURRENCY
     }
     post_json(SCRIPTS_URL, payload)
@@ -257,7 +257,7 @@ def push_batch_scripts(node_names: List[str], local_path: str, remote_path: str,
     } for n in node_names]
     payload = {
         "scripts": scripts,
-        "host_override": GNS3_BASE_URL,
+        "gns3_server_ip": GNS3_BASE_URL,
         "concurrency": SCRIPTS_CONCURRENCY
     }
     post_json(SCRIPTS_URL, payload)
