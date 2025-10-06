@@ -3,12 +3,14 @@
 from __future__ import annotations
 
 from functools import lru_cache
+from pathlib import Path
 
 from fastapi import Depends
 
 from core.config_store import ConfigStore
 from core.dhcp_assigner import DHCPAssigner
 from core.script_pusher import ScriptPusher
+from core.topology_store import TopologyRepository
 from models import APISettings
 
 
@@ -29,3 +31,12 @@ def get_script_pusher(settings: APISettings = Depends(get_settings)) -> ScriptPu
 
 def get_dhcp_assigner(config_store: ConfigStore = Depends(get_config_store)) -> DHCPAssigner:
     return DHCPAssigner(config_store)
+
+
+@lru_cache(maxsize=None)
+def _topology_repository_factory(storage_dir: str) -> TopologyRepository:
+    return TopologyRepository(Path(storage_dir))
+
+
+def get_topology_repository(settings: APISettings = Depends(get_settings)) -> TopologyRepository:
+    return _topology_repository_factory(str(settings.topologies_dir))
