@@ -1,5 +1,6 @@
 /.venv
 /old-scripts
+/storage/*
 __pycache__
 .env
 templates.generated.json
