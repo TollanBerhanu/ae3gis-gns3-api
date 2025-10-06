@@ -13,6 +13,12 @@ from .scripts import (
 	ScriptRunResponse,
 	ScriptUploadModel,
 )
+from .topology import (
+	TopologyCreateRequest,
+	TopologyDetail,
+	TopologySummary,
+	TopologyUpdateRequest,
+)
 from .settings import APISettings
 
 __all__ = [
@@ -31,4 +37,8 @@ __all__ = [
 	"ScriptRunRequest",
 	"ScriptRunResponse",
 	"ScriptUploadModel",
+	"TopologyCreateRequest",
+	"TopologyDetail",
+	"TopologySummary",
+	"TopologyUpdateRequest",
 ]
