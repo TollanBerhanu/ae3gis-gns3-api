@@ -68,7 +68,7 @@ class DHCPAssigner:
     async def assign(
         self,
         *,
-        host_override: str | None = None,
+        gns3_server_ip: str | None = None,
         dhclient_timeout: float = 15.0,
         dhcp_warmup: float = 0.0,
     ) -> DHCPAssignResult:
@@ -79,12 +79,12 @@ class DHCPAssigner:
 
         nodes = [n for n in nodes_value if isinstance(n, MutableMapping)]
 
-        server_results = await self._start_servers(nodes, host_override)
+        server_results = await self._start_servers(nodes, gns3_server_ip)
 
         if dhcp_warmup > 0:
             await asyncio.sleep(dhcp_warmup)
 
-        client_results, changed = await self._run_clients(nodes, host_override, dhclient_timeout)
+        client_results, changed = await self._run_clients(nodes, gns3_server_ip, dhclient_timeout)
 
         backup_path = None
         if changed:
@@ -101,7 +101,7 @@ class DHCPAssigner:
     async def _start_servers(
         self,
         nodes: Sequence[MutableMapping[str, Any]],
-        host_override: str | None,
+        gns3_server_ip: str | None,
     ) -> list[NodeExecutionResult]:
         results: list[NodeExecutionResult] = []
         for node in nodes:
@@ -109,7 +109,7 @@ class DHCPAssigner:
             if not is_dhcp_server(name):
                 continue
 
-            target = resolve_console_target(node, host_override)
+            target = resolve_console_target(node, gns3_server_ip)
             if target is None:
                 results.append(
                     NodeExecutionResult(
@@ -153,7 +153,7 @@ class DHCPAssigner:
     async def _run_clients(
         self,
         nodes: Sequence[MutableMapping[str, Any]],
-        host_override: str | None,
+        gns3_server_ip: str | None,
         dhclient_timeout: float,
     ) -> tuple[list[NodeExecutionResult], bool]:
         results: list[NodeExecutionResult] = []
@@ -174,7 +174,7 @@ class DHCPAssigner:
                 )
                 continue
 
-            target = resolve_console_target(node, host_override)
+            target = resolve_console_target(node, gns3_server_ip)
             if target is None:
                 previous_ip = node.get("assigned_ip")
                 if previous_ip is not None:

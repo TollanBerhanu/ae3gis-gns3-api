@@ -1,6 +1,3 @@
-Here’s a short, corrected README you can drop in:
-
-````markdown
 # AE3GIS GNS3 API — Quick Start
 
 ## Prerequisites
@@ -40,7 +37,7 @@ uvicorn api.main:app --reload
 
 The server will print the URL (default: `http://127.0.0.1:8000`).
 
-## 4) Use it
+## 4) Read the Docs
 
 * Interactive docs (Swagger): `http://127.0.0.1:8000/docs`
 * ReDoc: `http://127.0.0.1:8000/redoc`

@@ -11,7 +11,7 @@ API_BASE = "http://127.0.0.1:8000"
 BUILD_URL = f"{API_BASE}/scenario/build"
 SCRIPTS_URL = f"{API_BASE}/scripts/push"
 
-PROJECT_NAME = "ae3gis-scenario-builder-test"
+PROJECT_NAME = "ae3gis-test-1"
 # ========= ================== =========
 
 
@@ -208,6 +208,8 @@ def build_payload(tile: Tile, scenario_idx: int, next_client_id: int) -> Tuple[D
     payload = {
         "base_url": GNS3_BASE_URL,
         "start_nodes": True,
+        "username": "gns3",
+        "password": "gns3pass",
         "scenario": {
             "gns3_server_ip": GNS3_SERVER_IP,
             "project_name": PROJECT_NAME,
@@ -238,8 +240,10 @@ def push_script(node_name: str, local_path: str, remote_path: str, shell: str = 
             "run_timeout": timeout,
             "shell": shell
         }],
-        "host_override": GNS3_BASE_URL,
-        "concurrency": SCRIPTS_CONCURRENCY
+        "gns3_server_ip": GNS3_BASE_URL,
+        "concurrency": SCRIPTS_CONCURRENCY,
+        "username": "gns3",
+        "password": "gns3pass",
     }
     post_json(SCRIPTS_URL, payload)
 
@@ -257,8 +261,10 @@ def push_batch_scripts(node_names: List[str], local_path: str, remote_path: str,
     } for n in node_names]
     payload = {
         "scripts": scripts,
-        "host_override": GNS3_BASE_URL,
-        "concurrency": SCRIPTS_CONCURRENCY
+        "gns3_server_ip": GNS3_BASE_URL,
+        "concurrency": SCRIPTS_CONCURRENCY,
+        "username": "gns3",
+        "password": "gns3pass",
     }
     post_json(SCRIPTS_URL, payload)
 
