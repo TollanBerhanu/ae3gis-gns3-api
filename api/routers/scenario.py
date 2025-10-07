@@ -24,7 +24,7 @@ def _resolve_base_url(scenario: dict[str, object], override: str | None) -> str:
     ip = scenario.get("gns3_server_ip")
     if not isinstance(ip, str) or not ip:
         raise ValueError("Scenario missing 'gns3_server_ip' and no base_url override provided")
-    base = ip if ip.startswith("http") else f"http://{ip}:80"
+    base = ip if ip.startswith("http") else f"http://{ip}"
     return base.rstrip("/")
 
 

@@ -26,7 +26,7 @@ async def assign_dhcp(
     assigner: DHCPAssigner = Depends(get_dhcp_assigner),
 ) -> DHCPAssignResponse:
     result = await assigner.assign(
-        host_override=payload.host_override,
+        gns3_server_ip=payload.gns3_server_ip,
         dhclient_timeout=payload.dhclient_timeout,
         dhcp_warmup=payload.dhcp_warmup,
     )

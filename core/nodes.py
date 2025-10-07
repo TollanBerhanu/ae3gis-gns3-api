@@ -38,7 +38,7 @@ def _normalize_host(value: Any) -> str | None:
     return candidate
 
 
-def resolve_console_target(node: Mapping[str, Any], host_override: str | None = None) -> tuple[str, int] | None:
+def resolve_console_target(node: Mapping[str, Any], gns3_server_ip: str | None = None) -> tuple[str, int] | None:
     """Return the console host/port tuple for a node if available."""
 
     port = node.get("console")
@@ -49,7 +49,7 @@ def resolve_console_target(node: Mapping[str, Any], host_override: str | None = 
     except (TypeError, ValueError):
         return None
 
-    for candidate in (host_override, node.get("console_host"), "127.0.0.1"):
+    for candidate in (gns3_server_ip, node.get("console_host"), "127.0.0.1"):
         normalized = _normalize_host(candidate)
         if normalized:
             return normalized, port_int

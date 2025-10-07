@@ -19,7 +19,7 @@ class NodeExecutionModel(BaseModel):
 
 
 class DHCPAssignRequest(BaseModel):
-    host_override: str | None = Field(
+    gns3_server_ip: str | None = Field(
         default=None,
         description="Override console host address for all nodes (e.g., 192.168.56.1).",
     )
