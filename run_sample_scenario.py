@@ -11,16 +11,16 @@ API_BASE = "http://127.0.0.1:8000"
 BUILD_URL = f"{API_BASE}/scenario/build"
 SCRIPTS_URL = f"{API_BASE}/scripts/push"
 
-PROJECT_NAME = "ae3gis-test-1"
+PROJECT_NAME = "ae3gis-root-2"
 # ========= ================== =========
 
 
 # How many scenarios (tiles) to create and how they are laid out
-NUM_SCENARIOS = 4
-SCENARIOS_PER_ROW = 4             # how many tiles per row
+NUM_SCENARIOS = 9
+SCENARIOS_PER_ROW = 3             # how many tiles per row
 TILE_WIDTH = 900                  # px between scenarios horizontally
 TILE_HEIGHT = 500                 # px between scenarios vertically
-CANVAS_TOP_LEFT = (-1500, -1000)  # where the first scenario starts
+CANVAS_TOP_LEFT = (-500, -400)  # where the first scenario starts
 
 # Clients layout inside each scenario (tile)
 CLIENTS_PER_SCENARIO = 13
@@ -37,7 +37,7 @@ SERVER_OFFSET = (300, -250)
 SERVER_SCRIPT = "./run_server.sh"
 DHCP_SCRIPT = "./run_dhcp.sh"
 CLIENT_SCRIPT = "./run_http.sh"
-SCRIPTS_CONCURRENCY = 5  # the API may still run uploads concurrently; our calls remain sequential
+SCRIPTS_CONCURRENCY = 13  # the API may still run uploads concurrently; our calls remain sequential
 
 ID_PAD = 2  # zero pad for names like 01, 02, ...
 START_AT = 1
@@ -209,7 +209,7 @@ def build_payload(tile: Tile, scenario_idx: int, next_client_id: int) -> Tuple[D
         "base_url": GNS3_BASE_URL,
         "start_nodes": True,
         "username": "gns3",
-        "password": "gns3pass",
+        "password": "gns3",
         "scenario": {
             "gns3_server_ip": GNS3_SERVER_IP,
             "project_name": PROJECT_NAME,
@@ -243,7 +243,7 @@ def push_script(node_name: str, local_path: str, remote_path: str, shell: str = 
         "gns3_server_ip": GNS3_BASE_URL,
         "concurrency": SCRIPTS_CONCURRENCY,
         "username": "gns3",
-        "password": "gns3pass",
+        "password": "gns3",
     }
     post_json(SCRIPTS_URL, payload)
 
@@ -264,7 +264,7 @@ def push_batch_scripts(node_names: List[str], local_path: str, remote_path: str,
         "gns3_server_ip": GNS3_BASE_URL,
         "concurrency": SCRIPTS_CONCURRENCY,
         "username": "gns3",
-        "password": "gns3pass",
+        "password": "gns3",
     }
     post_json(SCRIPTS_URL, payload)
 
@@ -282,11 +282,11 @@ def main():
 
             # Sequential script pushes (order matters)
             print("  Pushing server script...")
-            push_script(special_names["server"], SERVER_SCRIPT, "/run_server.sh")
+            push_script(special_names["server"], SERVER_SCRIPT, "/usr/local/bin/run_server.sh")
             print("  Pushing DHCP script...")
-            push_script(special_names["dhcp"], DHCP_SCRIPT, "/usr/run_dhcp.sh")
+            push_script(special_names["dhcp"], DHCP_SCRIPT, "/usr/local/bin/run_dhcp.sh")
             print("  Pushing client scripts...")
-            push_batch_scripts(client_names, CLIENT_SCRIPT, "/usr/run_http.sh")
+            push_batch_scripts(client_names, CLIENT_SCRIPT, "/usr/local/bin/run_http2.sh")
 
     print("Done.")
 
