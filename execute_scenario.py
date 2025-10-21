@@ -295,6 +295,7 @@ def main() -> None:
 	print(f"Targets: {', '.join(targets)}")
 
 	max_workers = max(1, min(SERVER_CONCURRENCY, len(targets)))
+	failures: List[str] = []
 	with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
 		future_map = {
 			executor.submit(process_server, ip, project, settings): ip
@@ -305,7 +306,14 @@ def main() -> None:
 			try:
 				future.result()
 			except Exception as exc:
-				raise SystemExit(f"Failed processing server {ip}: {exc}") from exc
+				error_message = f"[WARN] Skipping GNS3 server {ip}: {exc}"
+				print(error_message)
+				failures.append(error_message)
+
+	if failures:
+		print("\nCompleted with warnings:")
+		for message in failures:
+			print(f"  - {message}")
 
 	print("Done.")
 
