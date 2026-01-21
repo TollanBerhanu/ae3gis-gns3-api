@@ -10,6 +10,7 @@ from fastapi import Depends
 from core.config_store import ConfigStore
 from core.dhcp_assigner import DHCPAssigner
 from core.script_pusher import ScriptPusher
+from core.script_store import ScriptRepository
 from core.topology_store import TopologyRepository
 from models import APISettings
 
@@ -40,3 +41,12 @@ def _topology_repository_factory(storage_dir: str) -> TopologyRepository:
 
 def get_topology_repository(settings: APISettings = Depends(get_settings)) -> TopologyRepository:
     return _topology_repository_factory(str(settings.topologies_dir))
+
+
+@lru_cache(maxsize=None)
+def _script_repository_factory(storage_dir: str) -> ScriptRepository:
+    return ScriptRepository(Path(storage_dir))
+
+
+def get_script_repository(settings: APISettings = Depends(get_settings)) -> ScriptRepository:
+    return _script_repository_factory(str(settings.scripts_storage_dir))

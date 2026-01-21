@@ -45,6 +45,10 @@ class APISettings(BaseSettings):
         Path("./storage/topologies"),
         description="Directory where topology JSON files are persisted.",
     )
+    scripts_storage_dir: Path = Field(
+        Path("./storage/scripts"),
+        description="Directory where uploaded script JSON files are persisted.",
+    )
 
     @computed_field
     @property
