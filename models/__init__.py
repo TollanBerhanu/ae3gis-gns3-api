@@ -1,8 +1,10 @@
 """Pydantic models for the API."""
 
 from .dhcp import DHCPAssignRequest, DHCPAssignResponse, NodeExecutionModel
-from .scenario import ScenarioBuildRequest, ScenarioBuildResponse
+from .scenario import NodeDefaultScript, ScenarioBuildRequest, ScenarioBuildResponse
 from .scripts import (
+	ScriptCreateRequest,
+	ScriptDetail,
 	ScriptExecutionModel,
 	ScriptPushItem,
 	ScriptPushRequest,
@@ -11,6 +13,8 @@ from .scripts import (
 	ScriptRunItem,
 	ScriptRunRequest,
 	ScriptRunResponse,
+	ScriptSummary,
+	ScriptUpdateRequest,
 	ScriptUploadModel,
 )
 from .topology import (
@@ -25,9 +29,12 @@ __all__ = [
 	"APISettings",
 	"DHCPAssignRequest",
 	"DHCPAssignResponse",
+	"NodeDefaultScript",
 	"NodeExecutionModel",
 	"ScenarioBuildRequest",
 	"ScenarioBuildResponse",
+	"ScriptCreateRequest",
+	"ScriptDetail",
 	"ScriptExecutionModel",
 	"ScriptPushItem",
 	"ScriptPushRequest",
@@ -36,6 +43,8 @@ __all__ = [
 	"ScriptRunItem",
 	"ScriptRunRequest",
 	"ScriptRunResponse",
+	"ScriptSummary",
+	"ScriptUpdateRequest",
 	"ScriptUploadModel",
 	"TopologyCreateRequest",
 	"TopologyDetail",
