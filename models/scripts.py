@@ -81,7 +81,7 @@ class ScriptPushItem(BaseModel):
 
 class ScriptPushRequest(BaseModel):
     scripts: list[ScriptPushItem]
-    gns3_server_ip: str | None = None
+    gns3_server_ip: str = Field(..., description="GNS3 server IP address (for telnet console access).")
     concurrency: int = Field(default=5, ge=1, description="Maximum concurrent uploads.")
 
 
@@ -128,7 +128,7 @@ class ScriptRunItem(BaseModel):
 
 class ScriptRunRequest(BaseModel):
     runs: list[ScriptRunItem]
-    gns3_server_ip: str | None = None
+    gns3_server_ip: str = Field(..., description="GNS3 server IP address (for telnet console access).")
     concurrency: int = Field(default=5, ge=1)
 
 
