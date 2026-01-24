@@ -61,6 +61,14 @@ class ScenarioNode(BaseModel):
     )
     x: int = Field(default=0, description="X position in the GNS3 canvas.")
     y: int = Field(default=0, description="Y position in the GNS3 canvas.")
+    layer: str | None = Field(
+        default=None,
+        description="Layer/zone this node belongs to (e.g., 'IT', 'DMZ', 'OT', 'Field'). For frontend visualization."
+    )
+    parent_name: str | None = Field(
+        default=None,
+        description="Name of parent node for hierarchy visualization. Null for top-level nodes."
+    )
     scripts: list[EmbeddedScript] = Field(
         default_factory=list,
         description="Scripts to execute on this node after deployment, in priority order."
