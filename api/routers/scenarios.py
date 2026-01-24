@@ -10,7 +10,7 @@ import requests
 from fastapi import APIRouter, Depends, HTTPException, Response, status
 
 from core.config_store import ConfigStore
-from core.gns3_client import GNS3Client
+from core.gns3_client import GNS3Client, GNS3APIError
 from core.nodes import find_node_by_name, resolve_console_target
 from core.scenario_builder import ScenarioBuilder
 from core.scenario_store import ScenarioNotFoundError, ScenarioRepository
@@ -365,6 +365,8 @@ async def _deploy_scenario_impl(
             start_nodes=payload.start_nodes
         )
         warnings.extend(result.warnings)
+    except GNS3APIError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
     except (LookupError, ValueError, requests.HTTPError) as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
     finally:
@@ -438,6 +440,8 @@ async def delete_project_nodes(
         nodes_deleted, links_deleted, errors = await asyncio.to_thread(
             client.delete_all_nodes, project_id
         )
+    except GNS3APIError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
     except requests.HTTPError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
     finally:
