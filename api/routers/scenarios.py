@@ -423,7 +423,7 @@ async def delete_project_nodes(
     payload: DeleteNodesRequest,
 ) -> DeleteNodesResponse:
     """
-    Delete all nodes and links from a GNS3 project.
+    Delete all nodes and links from a GNS3 project by project ID.
     
     This stops all nodes first, then deletes all links, then deletes all nodes.
     Useful for cleaning up a project before redeploying a scenario.
@@ -440,6 +440,52 @@ async def delete_project_nodes(
         nodes_deleted, links_deleted, errors = await asyncio.to_thread(
             client.delete_all_nodes, project_id
         )
+    except GNS3APIError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    except requests.HTTPError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    finally:
+        session.close()
+    
+    return DeleteNodesResponse(
+        project_id=project_id,
+        nodes_deleted=nodes_deleted,
+        links_deleted=links_deleted,
+        success=len(errors) == 0,
+        errors=errors,
+    )
+
+
+@router.delete("/projects/by-name/{project_name}/nodes", response_model=DeleteNodesResponse)
+async def delete_project_nodes_by_name(
+    project_name: str,
+    payload: DeleteNodesRequest,
+) -> DeleteNodesResponse:
+    """
+    Delete all nodes and links from a GNS3 project by project name.
+    
+    This looks up the project ID by name, then stops all nodes,
+    deletes all links, and deletes all nodes.
+    Useful for cleaning up a project before redeploying a scenario.
+    """
+    base_url = f"http://{payload.gns3_server_ip}:{payload.gns3_server_port}"
+    
+    session = requests.Session()
+    session.headers.update({"Accept": "application/json", "Content-Type": "application/json"})
+    session.auth = (payload.username, payload.password)
+    
+    client = GNS3Client(base_url=base_url, session=session)
+    
+    try:
+        # Look up project ID by name
+        project_id = await asyncio.to_thread(client.find_project_id, project_name)
+        
+        # Delete all nodes
+        nodes_deleted, links_deleted, errors = await asyncio.to_thread(
+            client.delete_all_nodes, project_id
+        )
+    except LookupError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
     except GNS3APIError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
     except requests.HTTPError as exc:
