@@ -41,10 +41,6 @@ class APISettings(BaseSettings):
         Path("./config/templates.generated.json"),
         description="Location where the template name/id cache will be written.",
     )
-    topologies_dir: Path = Field(
-        Path("./storage/topologies"),
-        description="Directory where topology JSON files are persisted.",
-    )
     scripts_storage_dir: Path = Field(
         Path("./storage/scripts"),
         description="Directory where uploaded script JSON files are persisted.",
