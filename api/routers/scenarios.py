@@ -24,6 +24,8 @@ from models.scenario_types import (
     ScenarioSummary,
     ScenarioUpdateRequest,
     ScriptExecutionSummary,
+    DeleteNodesRequest,
+    DeleteNodesResponse,
 )
 from models import APISettings
 
@@ -223,10 +225,12 @@ async def deploy_scenario(
     settings: APISettings = Depends(get_settings),
 ) -> ScenarioDeployResponse:
     """
-    Deploy a scenario to a student's GNS3 server.
+    Deploy a stored scenario to a student's GNS3 server.
+    
+    If payload.definition is provided, it overrides the stored scenario definition.
     
     This endpoint:
-    1. Loads the scenario definition
+    1. Loads the scenario definition (or uses provided definition)
     2. Creates all nodes and links in the student's GNS3 project
     3. Starts all nodes
     4. Executes embedded scripts in priority order (with delays between groups)
@@ -237,9 +241,65 @@ async def deploy_scenario(
     except ScenarioNotFoundError as exc:
         raise HTTPException(status_code=404, detail="Scenario not found") from exc
     
-    definition = ScenarioDefinition.model_validate(record["definition"])
+    # Use provided definition or fall back to stored one
+    if payload.definition:
+        definition = payload.definition
+    else:
+        definition = ScenarioDefinition.model_validate(record["definition"])
     scenario_name = record["name"]
     
+    return await _deploy_scenario_impl(
+        definition=definition,
+        payload=payload,
+        pusher=pusher,
+        settings=settings,
+        scenario_id=scenario_id,
+        scenario_name=scenario_name,
+    )
+
+
+@router.post("/deploy", response_model=ScenarioDeployResponse)
+async def deploy_adhoc_scenario(
+    payload: ScenarioDeployRequest,
+    pusher: ScriptPusher = Depends(get_script_pusher),
+    settings: APISettings = Depends(get_settings),
+) -> ScenarioDeployResponse:
+    """
+    Deploy an ad-hoc scenario directly without storing it.
+    
+    Requires payload.definition to be provided.
+    
+    This endpoint:
+    1. Uses the provided scenario definition
+    2. Creates all nodes and links in the student's GNS3 project
+    3. Starts all nodes
+    4. Executes embedded scripts in priority order (with delays between groups)
+    """
+    if not payload.definition:
+        raise HTTPException(
+            status_code=400,
+            detail="definition is required for ad-hoc deployment"
+        )
+    
+    return await _deploy_scenario_impl(
+        definition=payload.definition,
+        payload=payload,
+        pusher=pusher,
+        settings=settings,
+        scenario_id=None,
+        scenario_name=None,
+    )
+
+
+async def _deploy_scenario_impl(
+    definition: ScenarioDefinition,
+    payload: ScenarioDeployRequest,
+    pusher: ScriptPusher,
+    settings: APISettings,
+    scenario_id: str | None,
+    scenario_name: str | None,
+) -> ScenarioDeployResponse:
+    """Shared implementation for deploying a scenario."""
     # Build base URL from student's GNS3 server
     base_url = f"http://{payload.gns3_server_ip}:{payload.gns3_server_port}"
     
@@ -295,6 +355,7 @@ async def deploy_scenario(
     builder = ScenarioBuilder(client, request_delay=settings.gns3_request_delay)
     
     errors: list[str] = []
+    warnings: list[str] = []
     
     try:
         # Build scenario (create nodes and links)
@@ -303,6 +364,7 @@ async def deploy_scenario(
             scenario_dict, 
             start_nodes=payload.start_nodes
         )
+        warnings.extend(result.warnings)
     except (LookupError, ValueError, requests.HTTPError) as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
     finally:
@@ -343,5 +405,48 @@ async def deploy_scenario(
         links_created=len(result.links_created),
         scripts_executed=scripts_executed,
         success=overall_success,
+        errors=errors,
+        warnings=warnings,
+    )
+
+
+# -----------------------------------------------------------------------------
+# Project Node Management Endpoints
+# -----------------------------------------------------------------------------
+
+
+@router.delete("/projects/{project_id}/nodes", response_model=DeleteNodesResponse)
+async def delete_project_nodes(
+    project_id: str,
+    payload: DeleteNodesRequest,
+) -> DeleteNodesResponse:
+    """
+    Delete all nodes and links from a GNS3 project.
+    
+    This stops all nodes first, then deletes all links, then deletes all nodes.
+    Useful for cleaning up a project before redeploying a scenario.
+    """
+    base_url = f"http://{payload.gns3_server_ip}:{payload.gns3_server_port}"
+    
+    session = requests.Session()
+    session.headers.update({"Accept": "application/json", "Content-Type": "application/json"})
+    session.auth = (payload.username, payload.password)
+    
+    client = GNS3Client(base_url=base_url, session=session)
+    
+    try:
+        nodes_deleted, links_deleted, errors = await asyncio.to_thread(
+            client.delete_all_nodes, project_id
+        )
+    except requests.HTTPError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    finally:
+        session.close()
+    
+    return DeleteNodesResponse(
+        project_id=project_id,
+        nodes_deleted=nodes_deleted,
+        links_deleted=links_deleted,
+        success=len(errors) == 0,
         errors=errors,
     )

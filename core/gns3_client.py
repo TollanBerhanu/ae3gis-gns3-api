@@ -83,6 +83,80 @@ class GNS3Client:
         for template in templates:
             yield dict(template)
 
+    # -------------------------------------------------------------------------
+    # DELETE operations
+    # -------------------------------------------------------------------------
+
+    def delete(self, path: str) -> bool:
+        """Perform a DELETE request. Returns True on success."""
+        response = self.session.delete(self._url(path))
+        response.raise_for_status()
+        return True
+
+    def list_nodes(self, project_id: str) -> list[MutableMapping[str, Any]]:
+        """List all nodes in a project."""
+        nodes = self.get(f"/v2/projects/{project_id}/nodes")
+        return list(nodes)
+
+    def stop_all_nodes(self, project_id: str) -> bool:
+        """Stop all nodes in a project."""
+        try:
+            self.post(f"/v2/projects/{project_id}/nodes/stop")
+            return True
+        except requests.HTTPError:
+            return False
+
+    def delete_node(self, project_id: str, node_id: str) -> bool:
+        """Delete a single node."""
+        try:
+            self.delete(f"/v2/projects/{project_id}/nodes/{node_id}")
+            return True
+        except requests.HTTPError:
+            return False
+
+    def delete_link(self, project_id: str, link_id: str) -> bool:
+        """Delete a single link."""
+        try:
+            self.delete(f"/v2/projects/{project_id}/links/{link_id}")
+            return True
+        except requests.HTTPError:
+            return False
+
+    def delete_all_nodes(self, project_id: str) -> tuple[int, int, list[str]]:
+        """
+        Stop and delete all nodes and links in a project.
+        
+        Returns (nodes_deleted, links_deleted, errors).
+        """
+        errors: list[str] = []
+        nodes_deleted = 0
+        links_deleted = 0
+
+        # Stop all nodes first
+        self.stop_all_nodes(project_id)
+
+        # Delete all links
+        try:
+            links = self.list_project_links(project_id)
+            for link in links:
+                link_id = link.get("link_id")
+                if link_id and self.delete_link(project_id, link_id):
+                    links_deleted += 1
+        except requests.HTTPError as exc:
+            errors.append(f"Failed to list/delete links: {exc}")
+
+        # Delete all nodes
+        try:
+            nodes = self.list_nodes(project_id)
+            for node in nodes:
+                node_id = node.get("node_id")
+                if node_id and self.delete_node(project_id, node_id):
+                    nodes_deleted += 1
+        except requests.HTTPError as exc:
+            errors.append(f"Failed to list/delete nodes: {exc}")
+
+        return nodes_deleted, links_deleted, errors
+
     def _url(self, path: str) -> str:
         if not path.startswith("/"):
             path = f"/{path}"

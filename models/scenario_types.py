@@ -171,6 +171,10 @@ class ScenarioDeployRequest(BaseModel):
         ge=0.0,
         description="Delay in seconds between different priority groups."
     )
+    definition: ScenarioDefinition | None = Field(
+        default=None,
+        description="Optional scenario definition. If provided, deploys this instead of stored scenario."
+    )
 
 
 class ScriptExecutionSummary(BaseModel):
@@ -187,13 +191,33 @@ class ScriptExecutionSummary(BaseModel):
 class ScenarioDeployResponse(BaseModel):
     """Response from deploying a scenario."""
 
-    scenario_id: str
-    scenario_name: str
+    scenario_id: str | None = Field(default=None, description="Scenario ID if deployed from stored scenario.")
+    scenario_name: str | None = Field(default=None, description="Scenario name if deployed from stored scenario.")
     project_id: str
     project_name: str | None
     gns3_server_ip: str
     nodes_created: int
     links_created: int
     scripts_executed: list[ScriptExecutionSummary]
+    success: bool
+    errors: list[str] = Field(default_factory=list)
+    warnings: list[str] = Field(default_factory=list, description="Non-fatal warnings during deployment.")
+
+
+class DeleteNodesRequest(BaseModel):
+    """Request body for deleting all nodes in a GNS3 project."""
+
+    gns3_server_ip: str = Field(..., description="GNS3 server IP address.")
+    gns3_server_port: int = Field(default=80, description="GNS3 server port.")
+    username: str = Field(default="gns3", description="GNS3 HTTP auth username.")
+    password: str = Field(default="gns3", description="GNS3 HTTP auth password.")
+
+
+class DeleteNodesResponse(BaseModel):
+    """Response from deleting nodes in a GNS3 project."""
+
+    project_id: str
+    nodes_deleted: int
+    links_deleted: int
     success: bool
     errors: list[str] = Field(default_factory=list)
