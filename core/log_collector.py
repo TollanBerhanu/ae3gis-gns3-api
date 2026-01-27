@@ -111,7 +111,7 @@ class LogCollector:
     ) -> bool:
         """Ensure syslog-ng is running on a collector node.
         
-        Starts syslog-ng in the background if not already running.
+        Always starts syslog-ng first (idempotent), then verifies it's running.
         Returns True if syslog-ng is running, False otherwise.
         """
         console_target = resolve_console_target(node, self.gns3_server_ip)
@@ -127,27 +127,32 @@ class LogCollector:
                 await asyncio.sleep(0.5)
                 await console.read(timeout=1.0)  # Clear buffer
                 
-                # Check if syslog-ng is already running
-                output = await console.run_command("pgrep syslog-ng", read_duration=2.0)
-                
-                if output.strip() and any(c.isdigit() for c in output):
-                    logger.info(f"syslog-ng already running on {node.get('name')}")
-                    return True
-                
-                # Start syslog-ng in background
+                # Always start syslog-ng first (it's idempotent - won't start a second instance)
                 logger.info(f"Starting syslog-ng on {node.get('name')}...")
                 await console.run_command("syslog-ng", read_duration=2.0)
                 
-                # Verify it started
-                await asyncio.sleep(1)
+                # Wait for it to initialize
+                await asyncio.sleep(1.5)
+                
+                # Verify it's running
                 output = await console.run_command("pgrep syslog-ng", read_duration=2.0)
                 
                 if output.strip() and any(c.isdigit() for c in output):
-                    logger.info(f"syslog-ng started successfully on {node.get('name')}")
+                    logger.info(f"syslog-ng running on {node.get('name')} (PID: {output.strip()})") 
                     return True
-                else:
-                    logger.error(f"Failed to start syslog-ng on {node.get('name')}")
-                    return False
+                
+                # Try starting again if first attempt failed
+                logger.warning(f"syslog-ng not running after first attempt on {node.get('name')}, retrying...")
+                await console.run_command("syslog-ng", read_duration=2.0)
+                await asyncio.sleep(1.5)
+                
+                output = await console.run_command("pgrep syslog-ng", read_duration=2.0)
+                if output.strip() and any(c.isdigit() for c in output):
+                    logger.info(f"syslog-ng started on retry on {node.get('name')} (PID: {output.strip()})")
+                    return True
+                
+                logger.error(f"Failed to start syslog-ng on {node.get('name')} after 2 attempts")
+                return False
                     
         except Exception as e:
             logger.error(f"Failed to ensure syslog-ng running on {node.get('name')}: {e}")
@@ -485,12 +490,35 @@ class LogCollector:
         self,
         snitch_node: SnitchNodeInfo,
     ) -> str:
-        """Retrieve logs from a snitch collector node via telnet."""
-        if not snitch_node.console_port:
-            raise ValueError(f"No console port for {snitch_node.name}")
+        """Retrieve logs from a snitch collector node via telnet.
         
-        host = snitch_node.console_host or self.gns3_server_ip
-        settings = TelnetSettings(host=host, port=snitch_node.console_port)
+        Gets fresh node info from GNS3 to ensure correct console port,
+        ensures syslog-ng is running, then reads the log file.
+        """
+        # Get fresh node info from GNS3 (console port may have changed)
+        node = self.client.get_node(self.project_id, snitch_node.node_id)
+        if not node:
+            raise ValueError(f"Node {snitch_node.name} not found in project")
+        
+        # Ensure the node is started
+        node_status = node.get("status", "stopped")
+        if node_status != "started":
+            logger.info(f"Starting {snitch_node.name} (was {node_status})...")
+            self.client.start_node(self.project_id, snitch_node.node_id)
+            await asyncio.sleep(2)  # Wait for node to start
+            node = self.client.get_node(self.project_id, snitch_node.node_id)
+        
+        # Get console target from fresh node info
+        console_target = resolve_console_target(node, self.gns3_server_ip)
+        if not console_target:
+            raise ValueError(f"No console available for {snitch_node.name}")
+        
+        host, port = console_target
+        
+        # Ensure syslog-ng is running before reading logs
+        await self._ensure_syslog_running(node)
+        
+        settings = TelnetSettings(host=host, port=port)
         
         try:
             async with TelnetConsole(settings) as console:
