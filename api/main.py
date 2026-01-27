@@ -9,6 +9,8 @@ from fastapi import FastAPI
 from .dependencies import get_settings
 from .routers import dhcp as dhcp_router
 from .routers import gns3 as gns3_router
+from .routers import instructor as instructor_router
+from .routers import logging as logging_router
 from .routers import scenarios as scenarios_router
 from .routers import scripts as scripts_router
 from models import APISettings
@@ -29,6 +31,8 @@ def create_app() -> FastAPI:
     app.include_router(gns3_router.router)
     app.include_router(dhcp_router.router)
     app.include_router(scripts_router.router)
+    app.include_router(logging_router.router)
+    app.include_router(instructor_router.router)
 
     # No startup dependency on GNS3 - all connection details come from frontend
 
